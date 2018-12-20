@@ -9,7 +9,9 @@ var opts ={
     border:true,
     position: "absolute",
     borderRadius : true,
-    margin: 10
+    margin: 10,
+    message : "Hello World",
+    speed : 10
 };
 
 

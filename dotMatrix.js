@@ -2,7 +2,9 @@ import dotMatrix from './moduls/dotMatrix.js';
 
 var opts ={
     canvas  : document.getElementById("dotMatrix"),
-    message : "Hello World",
+    message : `fjskdfjslfjsl
+    skfjslfkjsldfjslfjs
+    jfsfkjslfsljs`,
     fps : 20
 };
 

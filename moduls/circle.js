@@ -2,11 +2,11 @@
  * Create circle object
  * @param opts
  */
-class Circle {
-    constructor (opts) {
-            this.x = opts.x;
-            this.y = opts.y;
-            this.radius = opts.circleRadius;
-            this.fill = opts.colors.active;
+export default class  Circle {
+    constructor (x, y, radius, color) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.fill = color;
     }
 }

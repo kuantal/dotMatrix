@@ -14,6 +14,5 @@ class drawCircles {
             opts.ctx.fill();
             opts.ctx.closePath();
         }
-
     }
 }

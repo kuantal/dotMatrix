@@ -1,23 +1,16 @@
-import create from './moduls/create.js';
+import dotMatrix from './moduls/dotMatrix.js';
 
 var opts ={
-    el  : document.getElementById("dotMatrix"),
-    x : 50,
-    y:50,
-    size:10,
-    color: '#dddddd',
-    border:true,
-    position: "absolute",
-    borderRadius : true,
-    margin: 10,
+    canvas  : document.getElementById("dotMatrix"),
     message : "Hello World",
-    speed : 10
+    fps : 20
 };
 
 
-!function dotMAtrix(opts) {
-    create(opts);
-}(opts);
+
+var matrix = new dotMatrix(opts);
+
+
 
 
 

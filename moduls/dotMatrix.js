@@ -1,5 +1,5 @@
 'use strict';
-import Sectence from './sectence.js';
+import Sectence from './Sectence.js';
 
 
 class dotMatrix {
@@ -17,7 +17,7 @@ class dotMatrix {
             },
             letterDots: {
                 x: 5,
-                y: 7
+                y: 8
             },
             lineLetterCount : 50
         };
@@ -26,15 +26,12 @@ class dotMatrix {
         const populated = Object.assign(defaults, config);
         for (const key in populated) {
             if (populated.hasOwnProperty(key)) {
-                console.log(this);
                 this["options"][key] = populated[key];
             }
         }
-
-        console.log(this);
-
-        this.ctx = this.options.canvas.getContext('2d');
-        this.options.circleRadius = this.options.canvas.width / 20;
+        this.options.config = populated;
+        this.options.ctx = this.options.canvas.getContext('2d');
+        this.options.size = this.options.canvas.width / 20;
 
         this.init();
     }
@@ -43,25 +40,25 @@ class dotMatrix {
         let canvas =  this.options.canvas;
         canvas.width = window.innerWidth - this.options.padding;
         canvas.height = window.innerHeight - this.options.padding;
-        this.ctx.fillStyle = this.options.colors.canvasBg;
-        this.ctx.fillRect(0, 0, canvas.width - this.options.padding, canvas.height-this.options.padding);
-        this.ctx.fill();
-        this.ctx.save(); // save state
+        this.options.ctx.fillStyle = this.options.colors.canvasBg;
+        this.options.ctx.fillRect(0, 0, canvas.width - this.options.padding, canvas.height-this.options.padding);
+        this.options.ctx.fill();
+        this.options.ctx.save(); // save state
     }
 
     // Draw Canvas
     draw(){
-       // console.log( new Circle(10, 10, 10, this.colors.active));
-        new Sectence(this.options.message);
+       //  (char,posX,posY,size,color)
+        new Sectence(this.options);
     }
 
     // perform some animation task here
     animate(){
         this.draw();
-        setTimeout(() => {
-            requestAnimationFrame(this.animate.bind(this));
-
-        }, 1000 / this.fps);
+        // setTimeout(() => {
+        //     requestAnimationFrame(this.animate.bind(this));
+        //
+        // }, 1000 / this.fps);
 
     }
 

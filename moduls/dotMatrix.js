@@ -13,13 +13,13 @@ class dotMatrix {
             colors:{
                 active: '#ffcc03',
                 passive: '#383838',
-                canvasBg: '#000000'
+                canvasBg:  "#000000"
             },
             letterDots: {
                 x: 5,
                 y: 8
             },
-            lineLetterCount : 50
+            lineLetterCount : 40
         };
 
         // Merge  Options with defaults
@@ -31,7 +31,7 @@ class dotMatrix {
         }
         this.options.config = populated;
         this.options.ctx = this.options.canvas.getContext('2d');
-        this.options.size = this.options.canvas.width / 20;
+        this.options.size = this.options.canvas.width / 10;
 
         this.init();
     }
@@ -49,6 +49,8 @@ class dotMatrix {
     // Draw Canvas
     draw(){
        //  (char,posX,posY,size,color)
+        console.log('4:56 PM');
+        
         new Sectence(this.options);
     }
 

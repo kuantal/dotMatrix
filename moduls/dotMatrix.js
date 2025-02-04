@@ -19,8 +19,9 @@ class dotMatrix {
                 x: 5,
                 y: 8
             },
-            lineLetterCount : 40,
-            fill: false
+            crlf :false,
+            lineLetterCount :  window.innerWidth / 26.6,
+            fill: false //TODO::: LİNE FİLL WİTH EMPTY CHAR
         };
 
         // Merge  Options with defaults
@@ -44,7 +45,6 @@ class dotMatrix {
         this.options.ctx.fillStyle = this.options.colors.canvasBg;
         this.options.ctx.fillRect(0, 0, canvas.width - this.options.padding, canvas.height-this.options.padding);
         this.options.ctx.fill();
-        this.options.ctx.save(); // save state
     }
 
     // Draw Canvas

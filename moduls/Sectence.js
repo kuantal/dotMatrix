@@ -10,12 +10,18 @@ export default class Sectence {
         this.x = options.x || 1;
         this.y = options.y || 10;
         this.size = options.size;
+        this.index =  options.config.index ;
         this.color = options.config.colors;
         this.charLines = this.splitMessage(options.message, options.lineLetterCount);
         this.write();
     }
 
     splitMessage(message, lineLetterCount) {
+        if(Object.prototype.toString.call(message) === '[object Array]') {
+            console.log(this.index);
+            message = message[this.index];
+        }
+
         if (this.options.crlf) {
             return message.split('\n');
         } else {
@@ -28,6 +34,8 @@ export default class Sectence {
     }
 
     write() {
+
+        console.log(this.options.message);
         let rt = 0;
 
         for (let ch = 0; ch < this.charLines.length; ch++) {

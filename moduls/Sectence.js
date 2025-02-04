@@ -11,36 +11,48 @@ export default class Sectence {
         this.y = options.y || 10;
         this.size = options.size;
         this.color = options.config.colors;
-        this.char = options.message;
+        this.charLines = this.splitMessage(options.message, options.lineLetterCount);
         this.write();
     }
 
+    splitMessage(message, lineLetterCount) {
+        const chunks = [];
+        for (let i = 0; i < message.length; i += lineLetterCount) {
+            chunks.push(message.substring(i, i + lineLetterCount));
+        }
+        return chunks;
+    }
+
     write() {
-        console.log(this.char.length);
+        let rt = 0;
+        var line='';
+        xpos = 0;
 
-        this.char.forEach((char, ch) => {
-           var newLine = true;
-            var line = this.char[ch].trim().split('');
+        for (let ch = 0; ch < this.charLines.length; ch++) {
 
-            for (let i = 0; i < line.length; i++) {
+             line = this.charLines[ch].trim().split('');
 
-                console.log(newLine , ch);
+
+            for (var i = 0; i <  this.options.lineLetterCount; i++) {
+                const crlf = this.options.crlf && line[i] === '\n';
+
+                if (crlf)
+                    rt++;
+
+                var xpos =  (((crlf ? 10 :this.x) + i) / 1.5) * this.size;
+
                 this.options.circlesArray.push({
                     char: line[i],
-                    x: newLine ? this.x = 10 : (this.x + i / 1.5 * this.size) ,
-                    y: (this.options.lineLetterCount/2) * ch,
+                    x: xpos,
+                    y: (this.size + 10) * (ch + rt),
                     size: this.size,
                     color: this.color,
                     letterMap: charset[line[i]]
                 });
-                newLine = false;
-
-              //  console.log(this.options.circlesArray[i]);
             }
 
-        })
+        }
 
         new drawLetter(this.options);
-        console.log(this.options);
     }
 }

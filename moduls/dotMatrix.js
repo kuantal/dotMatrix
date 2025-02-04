@@ -19,7 +19,8 @@ class dotMatrix {
                 x: 5,
                 y: 8
             },
-            lineLetterCount : 40
+            lineLetterCount : 40,
+            fill: false
         };
 
         // Merge  Options with defaults
@@ -31,7 +32,7 @@ class dotMatrix {
         }
         this.options.config = populated;
         this.options.ctx = this.options.canvas.getContext('2d');
-        this.options.size = this.options.canvas.width / 10;
+        this.options.size = this.options.canvas.width /7;
 
         this.init();
     }

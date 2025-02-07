@@ -1,88 +1,74 @@
 'use strict';
 import Sectence from './Sectence.js';
 
-
 class dotMatrix {
-    constructor (config) {
-        // Default Optionst
-        this.options = {};
+    constructor(config) {
         const defaults = {
             fps: 1,
             message: 'Hello World',
-            padding:20,
+            padding: 20,
             circlesArray: [],
-            colors:{
+            colors: {
                 active: '#ffcc03',
                 passive: '#383838',
-                canvasBg:  "#000000"
+                bg: '#333333',
+                canvasBg: "#000000"
             },
             letterDots: {
                 x: 5,
                 y: 8
             },
-            crlf :false,
-            index:0,
-            lineLetterCount :  window.innerWidth / 26.6,
-            fill: false //TODO::: LİNE FİLL WİTH EMPTY CHAR
+            crlf: false,
+            index: 0,
+            lineLetterCount: window.innerWidth / 26.6,
+            fill: false
         };
 
-        // Merge  Options with defaults
-        const populated = Object.assign(defaults, config);
-        for (const key in populated) {
-            if (populated.hasOwnProperty(key)) {
-                this["options"][key] = populated[key];
-            }
-        }
-        this.options.config = populated;
+        this.options = { ...defaults, ...config };
+        this.options.config = this.options;
         this.options.ctx = this.options.canvas.getContext('2d');
-        this.options.size = this.options.canvas.width /7;
+        this.options.size = this.options.canvas.width / 7;
 
         this.init();
     }
-    // Setup Canvas
-    setupCanvas (){
-        let canvas =  this.options.canvas;
-        canvas.width = window.innerWidth - this.options.padding;
-        canvas.height = window.innerHeight - this.options.padding;
-        this.options.ctx.fillStyle = this.options.colors.canvasBg;
-        this.options.ctx.fillRect(0, 0, canvas.width - this.options.padding, canvas.height-this.options.padding);
-        this.options.ctx.fill();
+
+    setupCanvas() {
+        const { canvas, padding, colors, ctx } = this.options;
+        canvas.width = window.innerWidth - padding;
+        canvas.height = window.innerHeight - padding;
+        ctx.fillStyle = colors.canvasBg;
+        ctx.fillRect(0, 0, canvas.width - padding, canvas.height - padding);
+        ctx.fill();
+
+        this.options.circlesArray = [];
+
+
+
     }
 
-    // Draw Canvas
-    draw(){
-        new Sectence(this.options);
+    draw() {
+        if (!this.s) {
+            this.s = new Sectence(this.options);
+        }
+        this.s.clearCanvas();
+        this.s.write();
     }
 
-    // perform some animation task here
-    animate(){
-        // clear canvas
-        this.options.ctx.clearRect(0, 0, this.options.canvas.width, this.options.canvas.height);
+    animate() {
         this.draw();
 
-        if(Object.prototype.toString.call(this.options.message) === '[object Array]') {
-            //TODO::: Animation Message Chage Select
-            if(this.options.index > this.options.message.length){
-                this.options.index = 0;
-            }
-
+        if (Array.isArray(this.options.message) && this.options.message.length > 1) {
             setTimeout(() => {
                 requestAnimationFrame(this.animate.bind(this));
-                this.options.index = this.options.index + 1;
-            }, 1000 / this.fps);
-
+                this.s.options.index = (this.s.options.index + 1) % this.s.options.message.length;
+            }, 1000 / this.options.fps);
         }
-
-
     }
 
-
-    // Init Dot Matrix
-    init () {
+    init() {
         this.setupCanvas();
         this.animate();
     }
-
-
 }
+
 export default dotMatrix;

@@ -1,0 +1,26 @@
+{
+  "name": "dotmatrixmain",
+  "version": "1.0.0",
+  "description": "Display messages on the dot matrix screen",
+  "main": "dotMatrix.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kuantal/dotMatrix.git"
+  },
+  "keywords": [
+    "dot",
+    "matrix",
+    "panel",
+    "animation",
+    "slide"
+  ],
+  "author": "ilker YILMAZ",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kuantal/dotMatrix/issues"
+  },
+  "homepage": "https://github.com/kuantal/dotMatrix#readme"
+}

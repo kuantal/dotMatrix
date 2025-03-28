@@ -1,7 +1,14 @@
 'use strict';
 import Sectence from './Sectence.js';
 
+/**
+ * The dotMatrix class is used to control a dot matrix screen.
+ */
 class dotMatrix {
+    /**
+     * Constructor function of the dotMatrix class.
+     * @param {Object} config - Configuration options.
+     */
     constructor(config) {
         const defaults = {
             fps: 1,
@@ -32,6 +39,9 @@ class dotMatrix {
         this.init();
     }
 
+    /**
+     * Sets up the canvas and fills the background.
+     */
     setupCanvas() {
         const { canvas, padding, colors, ctx } = this.options;
         canvas.width = window.innerWidth - padding;
@@ -41,11 +51,11 @@ class dotMatrix {
         ctx.fill();
 
         this.options.circlesArray = [];
-
-
-
     }
 
+    /**
+     * Draws the message on the canvas.
+     */
     draw() {
         if (!this.s) {
             this.s = new Sectence(this.options);
@@ -54,6 +64,9 @@ class dotMatrix {
         this.s.write();
     }
 
+    /**
+     * Starts the animation and displays the messages in a loop.
+     */
     animate() {
         this.draw();
 
@@ -65,6 +78,9 @@ class dotMatrix {
         }
     }
 
+    /**
+     * Initializes the DotMatrix screen.
+     */
     init() {
         this.setupCanvas();
         this.animate();

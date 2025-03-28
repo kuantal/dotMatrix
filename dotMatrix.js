@@ -1,41 +1,42 @@
 import dotMatrix from './moduls/dotMatrix.js';
 
-var str = `Tatile gitmek, gezmek, dinlenmek ve yeni yerler keşfetmek her zaman için yapılması en keyifli aktiviteler arasında yer alıyor. Tatile gitmek denilince ise akla, yaşadığınız yerden daha farklı bir lokasyona gitmek, tatil ve bütçe planları yapmak gibi süreçler geliyor. Her ne kadar bu süreçler oldukça keyifli olsa da her zaman ayrıntılı tatil planları ve uzaklara giderek tatil yapmak için zamanımız ve enerjimiz olmuyor. 2024 yılında ise tatil yapmaya ve planlamaya vakti olmayan, çalışan veya okuyanların yoğun zamanlarında pratik ve keyifli bir şekilde bu tatili yapmalarını sağlayacak bir tatil türü popülerleşti. StayCation denilen bu tatil trendi insanlara yorulmadan tatil yapma sürecine girebilme ve yaşadıkları şehri daha yakından tanıyabilme fırsatı veriyor. Siz de son zamanlarda böyle bir tatil yapma ihtiyacı duyuyor ve bu tatil trendi merak ediyorsanız işte StayCation tatilinin ayrıntıları:`;
+// Long text content
+var str = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Sunt velit, iure qui suscipit blandit quis cupiditat labore imperdiet
+eros vel laoreet vel sanctus veniam nibh augue laborum ea luptatum
+ consectetur fugiat exerci cum veniam. Luptatum incidunt invidunt,
+ aute ipsum ea non ut nisl voluptate nihil in erat amet gubergren
+  velit zzril eiusmod enim. Justo wisi invidunt. Dolor minim facer.
+  Tincidunt nostrud commodo tempor nisi dignissim possim consectetuer
+  augue delenit. At stet nobis aliquyam pariatur deserunt eiusmod
+  officia nonummy. Tincidunt te feugait.`;
 
-var str2 = 'StayCation ÜüŞşİiÖö   Nedir?';
-var str3 = 'Lorewm İpsum';
-// Crete random 10 letter string with 1000 characters
- var str4 = Array.from({length: 1000}, () => String.fromCharCode(Math.floor(Math.random() * 26) + 97)).join('');
+// Short title
+var str2 = 'Special Chars ÜüŞşİiÖö ?';
 
+// Short text
+var str3 = 'Cupiditat volutpat ex suscipit.';
 
+// Create an array of 1000 characters long with 10 letters randomly
+var str4 = Array.from({length: 1000}, () => String.fromCharCode(Math.floor(Math.random() * 26) + 97)).join('');
 
-var opts ={
-    canvas  : document.getElementById("dotMatrix"),
-    message :[str,str2,str3],
-    fps : .5,
-    colors:{
-        active: '#ffcc03',
-        passive: '#292929',
-        bg: '#161616',
-        canvasBg:  "#121212"
+// Options for DotMatrix screen
+var opts = {
+    canvas  : document.getElementById("dotMatrix"), // Canvas element for DotMatrix screen
+    message : [str, str2, str3], // Messages to be displayed
+    fps : .5, // Frames per second
+    colors: {
+        active: '#ffcc03', // Active pixel color const colors = ['#ffcc03', '#ff9900', '#ff6600', '#ccff00', '#ff3300'];
+        passive: '#292929', // Passive pixel color +
+        bg: '#161616', // Background color
+        canvasBg:  "#121212" // Canvas background color
     },
-
-    crlf :false,
-    index: 0,
-    lineLetterCount : 60, //40
-    fill: true
+    crlf : false, // Use of carriage return line feed
+    index: 0, // Starting index
+    lineLetterCount : 60, // Number of letters per line
+    fill: true // Use fill
 };
 
-
-
+// Create DotMatrix object
 var matrix = new dotMatrix(opts);
 window.matrix = matrix;
-
-
-
-
-
-
-
-    
-    

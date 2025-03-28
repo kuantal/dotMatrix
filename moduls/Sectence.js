@@ -2,7 +2,14 @@ import drawLetter from './drawLetter.js';
 import charset from './charset.js';
 import drawCircles from "./drawCircle.js";
 
+/**
+ * The Sectence class is used to display messages on a dot matrix screen.
+ */
 export default class Sectence {
+    /**
+     * Constructor function of the Sectence class.
+     * @param {Object} options - Configuration options.
+     */
     constructor(options) {
         this.options = options;
         this.x = options.x || 1;
@@ -16,6 +23,12 @@ export default class Sectence {
         this.write();
     }
 
+    /**
+     * Splits the message into lines of a specified length.
+     * @param {string|string[]} message - The message to be displayed.
+     * @param {number} lineLetterCount - Number of letters per line.
+     * @returns {string[]} - Split message lines.
+     */
     splitMessage(message, lineLetterCount) {
         if (Array.isArray(message)) {
             message = message[this.options.index];
@@ -32,23 +45,22 @@ export default class Sectence {
         }
     }
 
+    /**
+     * Clears the canvas and fills the background.
+     */
     clearCanvas() {
-
         const { ctx, canvas, colors } = this.options;
 
         this.options.circlesArray = [];
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = colors.canvasBg;
-
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Fill canvas with dots
+        // Fill the canvas with dots
         if (this.options.fill) {
             for (let x = 0; x < canvas.width; x += this.size / 7) {
-                for (let y = 0; y < canvas.height; y += this.size /7) {
-
-
-                  new  drawCircles({
+                for (let y = 0; y < canvas.height; y += this.size / 7) {
+                    new drawCircles({
                         o: this.options,
                         x: x,
                         y: y,
@@ -56,9 +68,13 @@ export default class Sectence {
                         color: colors.bg
                     });
                 }
-            }}
+            }
+        }
     }
 
+    /**
+     * Writes the message to the canvas.
+     */
     write() {
         let rt = 0;
         this.charLines = this.splitMessage(this.options.message, this.options.lineLetterCount);

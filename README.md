@@ -2,6 +2,7 @@
 
 This project demonstrates how to use a dot matrix display. It includes sample code to control the dot matrix display using JavaScript.
 
+Demo Page: [Dot Matrix](https://kuantal.github.io/dotMatrix/)
 ## Features
 
 - Display messages on the dot matrix screen

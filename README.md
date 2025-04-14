@@ -1,8 +1,11 @@
 # Dot Matrix Display
-
-This project demonstrates how to use a dot matrix display. It includes sample code to control the dot matrix display using JavaScript.
+Dot matrix display is a simple and easy-to-use library for creating a dot matrix display in the browser. 
+Like mechanical dor matrix display. It includes sample code to control the dot matrix display using JavaScript.
 
 Demo Page: [Dot Matrix](https://kuantal.github.io/dotMatrix/)
+
+![dotmatrix](https://raw.githubusercontent.com/kuantal/dotMatrix/refs/heads/master/dotmatrix.JPG)
+
 ## Features
 
 - Display messages on the dot matrix screen
@@ -24,7 +27,6 @@ cd dot-matrix-display
 * moduls/dotMatrix.js: Class that controls the dot matrix screen.
 * moduls/circle.js: Class that creates a circle object.
 
-**Contributing**
-If you would like to contribute, please send a pull request or open an issue.
+
 
 

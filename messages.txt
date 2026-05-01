@@ -1,25 +1,25 @@
 # Dot Matrix Display — Messages
 # ─────────────────────────────────────────────────────────────────
-# Format:  Mesaj metni
-#          Mesaj metni | anahtar=deger | anahtar=deger
+# Format:  Message text
+#          Message text | key=value | key=value
 #
-# Desteklenen anahtarlar (hepsi opsiyonel):
-#   transition=stil   — none|fade|slideLeft|slideRight|slideUp|slideDown|
+# Supported keys (all optional):
+#   transition=style  — none|fade|slideLeft|slideRight|slideUp|slideDown|
 #                       wipe|wipeDiag|zoomIn|zoomOut|flipH
-#   duration=5        — ekranda kalma suresi (saniye)
-#   active=#renk      — yanan nokta rengi
-#   passive=#renk     — sonen nokta rengi
-#   bg=#renk          — arkaplan nokta rengi
-#   canvasBg=#renk    — canvas arkaplan rengi
+#   duration=5        — display duration (seconds)
+#   active=#color     — lit dot color
+#   passive=#color    — dim dot color
+#   bg=#color         — background dot color
+#   canvasBg=#color   — canvas background color
 #
-# Metin icinde renk ve font tanimlama:
-#   [#rrggbb]renkli kisim[/]        — renk degistir, [/] sifirlar
-#   [bold]kalin metin[/bold]        — kalin (bold) yap
-#   [bold #rrggbb]her ikisi[/]      — bold + renk birlikte
-#   Ornek: [bold #ff0000]RED[/] [#0000ff]BLUE[/] normal
+# Color and font definition within text:
+#   [#rrggbb]colored part[/]        — change color, [/] resets
+#   [bold]bold text[/bold]          — make bold
+#   [bold #rrggbb]both[/]           — bold + color together
+#   Example: [bold #ff0000]RED[/] [#0000ff]BLUE[/] normal
 #
-# Belirtilmeyen degerler dotMatrix.js'teki global ayarlardan alinir.
-# # ile baslayan satirlar yorum, bos satirlar goz ardi edilir.
+# Unspecified values are taken from global settings in dotMatrix.js.
+# Lines starting with # are comments, blank lines are ignored.
 # ─────────────────────────────────────────────────────────────────
 
 
@@ -29,16 +29,16 @@
 Hello \n World! Ö | transition=fade | active=#ffcc03
 56Z MAHMUTBEY - MECİDİYEKÖY | transition=slideLeft | active=#00aaff
 Hello \n World! Ö | transition=fade | active=#ffcc03
-Merhaba Dunya! | transition=slideLeft | active=#ff6600| duration=8
+Hello World! | transition=slideLeft | active=#ff6600| duration=8
 LED Display | transition=zoomIn | active=#00ff88 | passive=#0a2a0a | bg=#0a1a0a
 DotMatrix v2 | transition=wipeDiag | active=#ff0055 | canvasBg=#0a000a
 ABCDEFGHIJKLMNO | transition=flipH | active=#00ccff
 0123456789 | transition=wipe | active=#ffffff | passive=#222222
-slideRight Ornegi | transition=slideRight | active=#ff9900
-slideUp Ornegi | transition=slideUp | active=#cc00ff
-slideDown Ornegi | transition=slideDown | active=#ffcc03
-zoomOut Ornegi | transition=zoomOut | active=#ff3300 | bg=#1a0a00
-Hiç animasyon | transition=none | active=#aaaaaa
-Turkce: UuSsIiOoCcGg | transition=fade | active=#ffcc03
+slideRight Example | transition=slideRight | active=#ff9900
+slideUp Example | transition=slideUp | active=#cc00ff
+slideDown Example | transition=slideDown | active=#ffcc03
+zoomOut Example | transition=zoomOut | active=#ff3300 | bg=#1a0a00
+No animation | transition=none | active=#aaaaaa
+Turkish: UuSsIiOoCcGg | transition=fade | active=#ffcc03
 56Z MAHMUTBEY - MECİDİYEKÖY | transition=slideLeft | active=#00aaff
-Gelistirildi! | transition=slideLeft | active=#00aaff
+Improved! | transition=slideLeft | active=#00aaff

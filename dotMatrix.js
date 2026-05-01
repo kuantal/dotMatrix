@@ -1,42 +1,87 @@
-import dotMatrix from './moduls/dotMatrix.js';
+﻿import DotMatrix from './moduls/dotMatrix.js';
 
-// Long text content
-var str = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Sunt velit, iure qui suscipit blandit quis cupiditat labore imperdiet
-eros vel laoreet vel sanctus veniam nibh augue laborum ea luptatum
- consectetur fugiat exerci cum veniam. Luptatum incidunt invidunt,
- aute ipsum ea non ut nisl voluptate nihil in erat amet gubergren
-  velit zzril eiusmod enim. Justo wisi invidunt. Dolor minim facer.
-  Tincidunt nostrud commodo tempor nisi dignissim possim consectetuer
-  augue delenit. At stet nobis aliquyam pariatur deserunt eiusmod
-  officia nonummy. Tincidunt te feugait.`;
+// ── Configuration — global defaults ──────────────────────────────────────────
+//
+// Per-message overrides are specified in messages.txt using | delimiters.
+// Transition options:
+//   none | fade | slideLeft | slideRight | slideUp | slideDown |
+//   wipe | wipeDiag | zoomIn | zoomOut | flipH
 
-// Short title
-var str2 = 'Special Chars ÜüŞşİiÖö ?';
-
-// Short text
-var str3 = 'Cupiditat volutpat ex suscipit.';
-
-// Create an array of 1000 characters long with 10 letters randomly
-var str4 = Array.from({length: 1000}, () => String.fromCharCode(Math.floor(Math.random() * 26) + 97)).join('');
-
-// Options for DotMatrix screen
-var opts = {
-    canvas  : document.getElementById("dotMatrix"), // Canvas element for DotMatrix screen
-    message : [str, str2, str3], // Messages to be displayed
-    fps : .5, // Frames per second
+const opts = {
+    canvas            : document.getElementById('dotMatrix'),
+    messagesFile      : './messages.txt',
+    fps               : 0.4,        // default hold time per message (0.4 fps → ~2.5 s); overridable with duration=5 in messages.txt
+    transition        : 'fade',     // default transition style
+    transitionDuration: 800,        // transition animation duration (ms)
     colors: {
-        active: '#ffcc03', // Active pixel color const colors = ['#ffcc03', '#ff9900', '#ff6600', '#ccff00', '#ff3300'];
-        passive: '#292929', // Passive pixel color +
-        bg: '#161616', // Background color
-        canvasBg:  "#121212" // Canvas background color
+        active    : '#ffcc03',      // lit dot color
+        passive   : '#141414',      // unlit dot color (matches background — invisible)
+        bg        : '#141414',      // background dot grid color
+        canvasBg  : '#0a0a0a'       // canvas fill color
     },
-    crlf : false, // Use of carriage return line feed
-    index: 0, // Starting index
-    lineLetterCount : 60, // Number of letters per line
-    fill: true // Use fill
+    crlf            : true,         // true: split lines on \n
+    lineLetterCount : 16,           // characters per line (determines dot size)
+    fill            : true          // show background dot grid
 };
 
-// Create DotMatrix object
-var matrix = new dotMatrix(opts);
-window.matrix = matrix;
+// ── Message line parser ───────────────────────────────────────────────────────
+//
+// Format:  Message text | key=value | key=value
+// Example: Hello! | transition=zoomIn | active=#ff3300
+//
+// Supported keys: transition, duration, active, passive, bg, canvasBg
+//   duration=5  → this message stays on screen for 5 seconds (otherwise global fps is used)
+
+function parseMessage(line) {
+    const parts = line.split('|').map(p => p.trim());
+    const entry = { text: parts[0].replace(/\\n/g, '\n') };
+
+    for (let i = 1; i < parts.length; i++) {
+        const eqIdx = parts[i].indexOf('=');
+        if (eqIdx < 0) continue;
+        const key = parts[i].slice(0, eqIdx).trim();
+        const val = parts[i].slice(eqIdx + 1).trim();
+
+        if (key === 'transition') {
+            entry.transition = val;
+        } else if (key === 'duration') {
+            entry.duration = parseFloat(val) * 1000;  // seconds → ms
+        } else if (['active', 'passive', 'bg', 'canvasBg'].includes(key)) {
+            entry.colors = entry.colors || {};
+            entry.colors[key] = val;
+        }
+    }
+
+    return entry;
+}
+
+// ── messages.txt loader ───────────────────────────────────────────────────────
+
+async function loadMessages(url) {
+    try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const text = await res.text();
+        const entries = text
+            .split('\n')
+            .map(l => l.trim())
+            .filter(l => l.length > 0 && !l.startsWith('#'))
+            .map(parseMessage);
+        if (entries.length === 0) throw new Error('Empty file');
+        return entries;
+    } catch (err) {
+        console.warn('Could not load messages.txt:', err.message, '— using fallback messages.');
+        return [
+            { text: 'Hello World' },
+            { text: 'Dot Matrix', transition: 'slideLeft' },
+            { text: 'LED Display', transition: 'zoomIn', colors: { active: '#00ff88' } }
+        ];
+    }
+}
+
+// ── Bootstrap ─────────────────────────────────────────────────────────────────
+
+(async () => {
+    opts.message  = await loadMessages(opts.messagesFile);
+    window.matrix = new DotMatrix(opts);
+})();

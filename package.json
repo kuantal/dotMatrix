@@ -4,7 +4,8 @@
   "description": "Display messages on the dot matrix screen",
   "main": "dotMatrix.js",
   "scripts": {
-    "start": "npx serve .",
+    "start": "serve .",
+    "serve": "serve .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/kuantal/dotMatrix/issues"
   },
-  "homepage": "https://github.com/kuantal/dotMatrix#readme"
+  "homepage": "https://github.com/kuantal/dotMatrix#readme",
+  "devDependencies": {
+    "serve": "^14.2.6"
+  }
 }
